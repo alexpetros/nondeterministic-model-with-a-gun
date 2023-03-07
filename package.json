@@ -1,0 +1,12 @@
+{
+  "name": "gpt-chat-human",
+  "type":  "module",
+  "main": "openai.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Petros",
+  "dependencies": {
+    "openai": "^3.2.1"
+  }
+}
