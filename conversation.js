@@ -6,9 +6,9 @@ import config from './config.js'
 const configuration = new Configuration({ apiKey: config.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
 
-export class Conversation {
-  constructor () {
-    this.history = [
+export default class Conversation {
+  constructor (history) {
+    this.history = history || [
       { role: 'system', content: 'You are a helpful assistant.' }
     ]
   }

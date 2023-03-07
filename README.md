@@ -11,7 +11,10 @@ OPENAI_API_KEY=youkeyhere
 
 `npm install` on first fun
 
-`npm run start` to start the CLI
+`node cli.js` to start the CLI
+
+`node cli.js -f CONVERSATION_FILE` to start the CLI with a JSON conversation representation as the
+starting point.
 
 ## While running
 Just talk to it! If you response before the speech is done it will talk over you so wait for it to
