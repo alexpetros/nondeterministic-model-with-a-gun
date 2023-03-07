@@ -14,5 +14,5 @@ const conversation = new ai.Conversation()
 rl.on('line', async (line) => {
   const response = await conversation.say(line)
   exec(`say "${response}"`)
-  console.log(response)
+  console.log(`> ${response}`)
 })
