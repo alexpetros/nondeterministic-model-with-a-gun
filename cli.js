@@ -9,7 +9,7 @@ const rl = readline.createInterface({
   terminal: false
 })
 
-console.log('Welcome to the OpenAI TTS bot')
+console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will respond.')
 const conversation = new ai.Conversation()
 rl.on('line', async (line) => {
   const response = await conversation.say(line)
