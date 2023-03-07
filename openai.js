@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+
 import { Configuration, OpenAIApi } from 'openai'
 import config from './config.js'
 
@@ -23,5 +25,12 @@ export class Conversation {
     const { content, role } = responseMessage.message
     this.history.push({ role, content })
     return content
+  }
+
+  dumpHistoryToFile () {
+    const dump = JSON.stringify(this.history)
+    const unixTime = (new Date()).getTime()
+    fs.writeFileSync(`./chat-history-dump-${unixTime}.json`, dump)
+    console.log('[System] Succesfully dumped chat history')
   }
 }
