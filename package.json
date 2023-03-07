@@ -1,6 +1,6 @@
 {
   "name": "gpt-chat-human",
-  "type":  "module",
+  "type": "module",
   "main": "openai.js",
   "scripts": {
     "start": "node cli.js",
@@ -8,6 +8,7 @@
   },
   "author": "Alexander Petros",
   "dependencies": {
+    "node-fetch": "^3.3.0",
     "openai": "^3.2.1"
   }
 }
