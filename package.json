@@ -1,13 +1,18 @@
 {
   "name": "gpt-chat-human",
-  "type":  "module",
+  "type": "module",
   "main": "openai.js",
   "scripts": {
     "start": "node cli.js",
+    "lint": "standard",
+    "format": "standard --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alexander Petros",
   "dependencies": {
     "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0"
   }
 }

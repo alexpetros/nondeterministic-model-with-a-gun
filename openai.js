@@ -9,12 +9,12 @@ const openai = new OpenAIApi(configuration)
 export class Conversation {
   constructor () {
     this.history = [
-      {role: 'system', content: 'You are a helpful assistant.'},
+      { role: 'system', content: 'You are a helpful assistant.' }
     ]
   }
 
   async say (userMessage) {
-    this.history.push({role: 'user', content: userMessage})
+    this.history.push({ role: 'user', content: userMessage })
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: this.history
