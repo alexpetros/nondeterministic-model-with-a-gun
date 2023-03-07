@@ -13,6 +13,6 @@ console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will r
 const conversation = new ai.Conversation()
 rl.on('line', async (line) => {
   const response = await conversation.say(line)
-  exec(`say ${response}`)
+  exec(`say "${response}"`)
   console.log(response)
 })
