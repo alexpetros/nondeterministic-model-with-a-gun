@@ -24,9 +24,9 @@ const conversation = new ai.Conversation()
 
 //new method
 //set simulation parameters in simulationParams
-//userPreface : string = a string to be appended to the beginning of every user submission
-//endCondition : string = a flag to search for in what you say, will end the convo by changing `convoActive` to false, exiting the while loop
-//initialPrompt : resets the `this.history` property to whatever you want the initial prompt to be. Makes it easier to setup plot / guidelines.
+// userPreface : string = a string to be appended to the beginning of every user submission
+// endCondition : string = a flag to search for in what you say, will end the convo by changing `convoActive` to false, exiting the while loop
+// initialPrompt : resets the `this.history` property to whatever you want the initial prompt to be. Makes it easier to setup plot / guidelines.
 
 async function runSimulation (simulation) {
   
@@ -55,4 +55,4 @@ async function runSimulation (simulation) {
 }
 
 // run simulation with desired input
-runSimulation('hostage')
+runSimulation('interrogation')

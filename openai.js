@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai'
 import config from './config.js'
 import fs from 'fs'
+import { execSync } from 'node:child_process'
 
 const configuration = new Configuration({ apiKey: config.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
@@ -30,11 +31,10 @@ export class Conversation {
   async userRespond (audioFilePath, userPreface = null, initialPrompt = this.history[0].content) {
     // console.log("in userRespond", audioFilePath)
     if (this.history.length === 1) {
-      this.history = [
-        {role : 'system', content : initialPrompt}
-      ]
+      this.history[0] = {role : 'system', content : initialPrompt}
     }
     //get the trasnscript from the new audio file
+    execSync(`hear -d -i ${audioFilePath} > ./transcribed_text.txt`)
     const transcript = await openai.createTranscription(fs.createReadStream(audioFilePath), 'whisper-1');
     let transcribedMessage = userPreface ? `${userPreface} ${transcript.data.text}`: transcript.data.text
     console.log(transcribedMessage)
