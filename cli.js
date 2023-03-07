@@ -38,11 +38,12 @@ async function runSimulation (simulation) {
 
   if (simulationParams[simulation]) {
     //add other simulations to simulationParams to add more cases
-    if (simulation === 'hostage') {
+    if (simulation === 'interrogation') {
       while (convoActive) {
         const fileName = `./recordings/whisperTest_hostage_${fileCount++}.mp3`
         execSync(`sox -t coreaudio default ${fileName} silence 1 0.1 2% 1 2.0 2%`)
-        const [transcript, content] = await conversation.userRespond(fileName, simulationParams.hostage.userPreface, simulationParams.hostage.initialPrompt)
+        console.log("syncDOne")
+        const [transcript, content] = await conversation.userRespond(fileName, simulationParams[simulation].userPreface, simulationParams[simulation].initialPrompt)
         if (transcript.indexOf('end simulation as administrator') > -1) convoActive = false
         // console.log(transcript)
         let newContent = content.replaceAll('\'', '').replaceAll('"', '').replaceAll('`', '').replace('[ACTION: DIALOGUE]', '')

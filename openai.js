@@ -34,7 +34,7 @@ export class Conversation {
       this.history[0] = {role : 'system', content : initialPrompt}
     }
     //get the trasnscript from the new audio file
-    execSync(`hear -d -i ${audioFilePath} > ./transcribed_text.txt`)
+    // execSync(`hear -d -i ${audioFilePath} > ./transcribed_text.txt`)
     const transcript = await openai.createTranscription(fs.createReadStream(audioFilePath), 'whisper-1');
     let transcribedMessage = userPreface ? `${userPreface} ${transcript.data.text}`: transcript.data.text
     console.log(transcribedMessage)
