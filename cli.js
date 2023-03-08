@@ -1,8 +1,8 @@
+import fs from 'node:fs'
 import readline from 'node:readline'
 import { exec } from 'node:child_process'
 import { execSync } from 'node:child_process'
-import fs from 'fs'
-import * as ai from './openai.js'
+import Conversation from './conversation.js'
 import { simulationParams } from './simulationParams.js'
 const rl = readline.createInterface({
   input: process.stdin,
@@ -10,8 +10,11 @@ const rl = readline.createInterface({
   terminal: false
 })
 
+const args = process.argv.slice(2);
+const history = args[0] === '-f' ? JSON.parse(fs.readFileSync(args[1])) : undefined
+
 console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will respond.')
-const conversation = new ai.Conversation()
+// const conversation = new ai.Conversation()
 
 // original method
 // rl.on('line', async (line) => {
@@ -57,3 +60,15 @@ async function runSimulation (simulation) {
 
 // run simulation with desired input
 runSimulation('interrogation')
+
+
+const conversation = new Conversation(history)
+rl.on('line', async (line) => {
+  if (line.startsWith('.dump')) {
+    return conversation.dumpHistoryToFile()
+  }
+
+  const response = await conversation.say(line)
+  exec(`say "${response}"`)
+  console.log(`> ${response}`)
+})
