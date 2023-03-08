@@ -1,4 +1,6 @@
 import fs from 'node:fs'
+import { execSync } from 'node:child_process'
+
 import { Configuration, OpenAIApi } from 'openai'
 import config from './config.js'
 
@@ -7,8 +9,10 @@ const openai = new OpenAIApi(configuration)
 
 export default class Conversation {
   constructor (params) {
+    this.initialPrompt = params.initialPrompt
     this.userPrefix = params.userPrefix
     this.endCondition = params.endCondition
+    this.endAudio = params.endAudio
     this.history = [{ role: 'system', content: params.initialPrompt }]
   }
 
@@ -23,7 +27,11 @@ export default class Conversation {
 
   isOver () {
     const lastMessage = this.history.at(-1)?.content
-    return lastMessage.includes(this.endCondition)
+    return lastMessage.includes(this.endCondition) && lastMessage !== this.initialPrompt
+  }
+
+  playEndAudio () {
+    if (this.endAudio) execSync(`afplay ./audio/${this.endAudio}`)
   }
 
   dumpHistoryToFile () {
