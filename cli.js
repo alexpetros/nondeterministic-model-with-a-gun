@@ -28,6 +28,6 @@ rl.on('line', async (line) => {
   const userInput = line === '' ? await transcription.listen() : line
   const response = await conversation.say(userInput)
 
-  exec(`say "${response}"`)
+  exec(`say "${response.replaceAll('"', '')}"`)
   console.log(`> ${response}`)
 })
