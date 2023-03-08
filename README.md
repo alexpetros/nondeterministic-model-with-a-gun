@@ -9,9 +9,9 @@ Requires a `.env` file with an OpenAI key in the exact format of:
 OPENAI_API_KEY=youkeyhere
 ```
 
-requires `sox` to run. `brew install sox` if you don't have it
+Also requires `sox` to run. `brew install sox` if you don't have it
 
-`npm install` on first fun
+`npm install` on first run
 
 `node cli.js` to start the CLI
 
@@ -19,17 +19,19 @@ requires `sox` to run. `brew install sox` if you don't have it
 starting point.
 
 ## While running
-Begin the conversation by typing `.listen`, add `newRun` if you want to start from a clean slate, and add any simulation you want to start from with `nameOfSimulation`. So, `.listen newRun interrogation` starts a new run of the interrogation simulatio.
+The conversation will start with an interrogation simulation. You can type in text, or talk to it by
+pressing "Enter" and then speaking into the mic.
 
-Then just talk to it! If you response before the speech is done it will talk over you so wait for it to
-finish.
+If you response before the speech is done it will talk over you so wait for it to finish.
 
 At any point in the conversation, you can type `.dump` and the application will save your chat
 history to a timestamped JSON file. The conversation can continue as normal after doing so.
 
 ## Adding Simulations
-Simulations are objects that hold parameters for a given interaction. They are held in an array of objects that gets imported into `cli.js` from `simulationParams.js`. Currently, each situation is defined by a key (eg. `interrogation`). The value of that key is an object with three properties:
-  - userPreface {string} : a string to be appended to the beginning of every user submission
-  - endCondition {string} = a flag to search for in what you say, will end the convo by changing `convoActive` to false, exiting the while loop
-  - initialPrompt {string} : resets the first index of the `this.history` array to whatever you want the initial prompt to be. Makes it easier to setup plot / guidelines.
-
+Simulations are objects that hold parameters for a given interaction. They have the following
+attributes:
+  - userPrefix {string} : a string to be appended to the beginning of every user submission
+  - endCondition {string} : a flag that denotes the end of a conversation
+  - endAudio {string} : audio that plays when the simulation ends
+  - initialPrompt {string} : resets the first index of the `this.history` array to whatever you want
+    the initial prompt to be. Makes it easier to setup plot / guidelines.
