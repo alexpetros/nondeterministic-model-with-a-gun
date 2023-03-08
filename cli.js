@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 })
 
 const args = process.argv.slice(2);
-const history = args[0] === '-f' ? JSON.parse(fs.readFileSync(args[1])) : undefined
+let history = args[0] === '-f' ? JSON.parse(fs.readFileSync(args[1])) : undefined
 
 console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will respond.')
 // const conversation = new ai.Conversation()
@@ -31,44 +31,29 @@ console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will r
 // endCondition : string = a flag to search for in what you say, will end the convo by changing `convoActive` to false, exiting the while loop
 // initialPrompt : resets the `this.history` property to whatever you want the initial prompt to be. Makes it easier to setup plot / guidelines.
 
-async function runSimulation (simulation) {
-  
-  //set a holder variable to allow a convo to end
-  let convoActive = true
 
-  //save audio files sequentially
-  let fileCount = 0 
-
-  if (simulationParams[simulation]) {
-    //add other simulations to simulationParams to add more cases
-    if (simulation === 'interrogation') {
-      while (convoActive) {
-        const fileName = `./recordings/whisperTest_hostage_${fileCount++}.mp3`
-        execSync(`sox -t coreaudio default ${fileName} silence 1 0.1 2% 1 2.0 2%`)
-        // console.log("syncDOne")
-        const [transcript, content] = await conversation.userRespond(fileName, simulationParams[simulation].userPreface, simulationParams[simulation].initialPrompt)
-        if (transcript.indexOf('end simulation as administrator') > -1) convoActive = false
-        // console.log(transcript)
-        let newContent = content.replaceAll('\'', '').replaceAll('"', '').replaceAll('`', '')
-        execSync(`say "${newContent}"`)
-        console.log(newContent)
-      }
-    }
-  }
-  else console.log("Simulation does not exist")
-}
 
 // run simulation with desired input
-runSimulation('interrogation')
-
+// runSimulation('interrogation')
 
 const conversation = new Conversation(history)
+
 rl.on('line', async (line) => {
   if (line.startsWith('.dump')) {
     return conversation.dumpHistoryToFile()
   }
+  //if line starts with .listen
+  if (line.startsWith('.listen')) {
+    if (line.indexOf('newRun') > -1) {
+      conversation.newRun = true
+    }
+    //call listen with a specific scenario
+    if (line.indexOf('interrogation')) {
+      conversation.listen('interrogation')
+    }
+  }
 
-  const response = await conversation.say(line)
-  exec(`say "${response}"`)
-  console.log(`> ${response}`)
+  // const response = await conversation.say(line)
+  // exec(`say "${response}"`)
+  // console.log(`> ${response}`)
 })

@@ -19,7 +19,9 @@ requires `sox` to run. `brew install sox` if you don't have it
 starting point.
 
 ## While running
-Just talk to it! If you response before the speech is done it will talk over you so wait for it to
+Begin the conversation by typing `.listen`, add `newRun` if you want to start from a clean slate, and add any simulation you want to start from with `nameOfSimulation`. So, `.listen newRun interrogation` starts a new run of the interrogation simulation.
+
+Then just talk to it! If you response before the speech is done it will talk over you so wait for it to
 finish.
 
 At any point in the conversation, you can type `.dump` and the application will save your chat
