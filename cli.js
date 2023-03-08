@@ -13,7 +13,7 @@ const rl = readline.createInterface({
 const args = process.argv.slice(2);
 let history = args[0] === '-f' ? JSON.parse(fs.readFileSync(args[1])) : undefined
 
-console.log('Welcome to the ChatGPT TTS. Enter a line of text, and the AI will respond.')
+console.log('Welcome to the ChatGPT TTS. Type `.listen newRun` to begin a new simulation.')
 // const conversation = new ai.Conversation()
 
 // original method

@@ -19,7 +19,7 @@ requires `sox` to run. `brew install sox` if you don't have it
 starting point.
 
 ## While running
-Begin the conversation by typing `.listen`, add `newRun` if you want to start from a clean slate, and add any simulation you want to start from with `nameOfSimulation`. So, `.listen newRun interrogation` starts a new run of the interrogation simulation.
+Begin the conversation by typing `.listen`, add `newRun` if you want to start from a clean slate, and add any simulation you want to start from with `nameOfSimulation`. So, `.listen newRun interrogation` starts a new run of the interrogation simulatio.
 
 Then just talk to it! If you response before the speech is done it will talk over you so wait for it to
 finish.
