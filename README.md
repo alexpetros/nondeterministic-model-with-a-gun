@@ -7,7 +7,7 @@ Prototype; currently MacOS Apple Silicon only.
 ## Installation
 1. Install `sox` with `brew install sox`.
 
-1. `whisper` you will have to install manually but fortunately the installation instructions are easy.
+2. `whisper` you will have to install manually but fortunately the installation instructions are easy.
 Just clone the [whisper repository](https://github.com/ggerganov/whisper.cpp), build it, and make
 sure that the resulting file is in your PATH somewhere as main. Let's say you have a `~/bin` folder
 in your PATH:
@@ -19,14 +19,14 @@ make
 cp main ~/bin/whisper
 ```
 
-1. Download the language model by running `bash ./models/download-base-en.sh`
+3. Download the language model by running `bash ./models/download-base-en.sh`
 
-1. Create a `.env` file with an OpenAI key in the exact format of:
+4. Create a `.env` file with an OpenAI key in the exact format of:
 ```
 OPENAI_API_KEY=youkeyhere
 ```
 
-1. Then run `npm install`
+5. Then run `npm install`
 
 I'll bundle this all eventually.
 
