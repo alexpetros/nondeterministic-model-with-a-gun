@@ -1,6 +1,6 @@
-.env
-node_modules/
-recordings/
-whisperTe*
 package-lock.json
+node_modules/
+.env
+recordings/*
+models/*.bin
 chat-history-dump*

@@ -1,18 +1,36 @@
 # Human Chat GPT
-Talk to ChatGPT, and it talks back with a human voice.
+Talk to ChatGPT, and it talks back with a human voice. Built with ChatGPT (for now) and
+[Whisper.cpp](https://github.com/ggerganov/whisper.cpp)
 
-Prototype; currently MacOS only.
+Prototype; currently MacOS Apple Silicon only.
 
-## To Run
-Requires a `.env` file with an OpenAI key in the exact format of:
+## Installation
+1. Install `sox` with `brew install sox`.
+
+1. `whisper` you will have to install manually but fortunately the installation instructions are easy.
+Just clone the [whisper repository](https://github.com/ggerganov/whisper.cpp), build it, and make
+sure that the resulting file is in your PATH somewhere as main. Let's say you have a `~/bin` folder
+in your PATH:
+
+```
+git clone https://github.com/ggerganov/whisper.cpp
+cd whisper.cpp
+make
+cp main ~/bin/whisper
+```
+
+1. Download the language model by running `bash ./models/download-base-en.sh`
+
+1. Create a `.env` file with an OpenAI key in the exact format of:
 ```
 OPENAI_API_KEY=youkeyhere
 ```
 
-Also requires `sox` to run. `brew install sox` if you don't have it
+1. Then run `npm install`
 
-`npm install` on first run
+I'll bundle this all eventually.
 
+## To Run
 `node cli.js` to start the CLI
 
 `node cli.js -f CONVERSATION_FILE` to start the CLI with a JSON conversation representation as the
@@ -22,7 +40,7 @@ starting point.
 The conversation will start with an interrogation simulation. You can type in text, or talk to it by
 pressing "Enter" and then speaking into the mic.
 
-If you response before the speech is done it will talk over you so wait for it to finish.
+If you response before the speech is done it will talk over you, so wait for it to finish.
 
 At any point in the conversation, you can type `.dump` and the application will save your chat
 history to a timestamped JSON file. The conversation can continue as normal after doing so.
