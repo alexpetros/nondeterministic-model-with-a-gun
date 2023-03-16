@@ -1,6 +1,6 @@
 // import fs from 'node:fs'
 import readline from 'node:readline/promises'
-import { exec } from 'node:child_process'
+import { exec, execSync } from 'node:child_process'
 
 import Conversation from './conversation.js'
 import * as simulations from './simulations.js'
@@ -37,7 +37,7 @@ while (!conversation.isOver()) {
   }
   const response = await conversation.say(userInput)
 
-  exec(`say "${response.replaceAll('"', '')}"`)
+  execSync(`say "${response.replaceAll('"', '')}"`)
   console.log(`> ${response}`)
 }
 
