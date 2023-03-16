@@ -43,7 +43,8 @@ export default class Conversation {
 }
 
 async function getNextMessage (history) {
-  const response = await openai.createChatCompletion({ model: 'gpt-3.5-turbo', messages: history })
+  const response = await openai.createChatCompletion({ model: 'gpt-4', messages: history })
+  // const response = await openai.createChatCompletion({ model: 'gpt-3.5-turbo', messages: history })
   const message = response.data.choices[0].message
   if (!message) throw new Error('OpenAi returned no responseMessage', response.data)
   return message
