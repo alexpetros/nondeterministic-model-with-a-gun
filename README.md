@@ -1,6 +1,7 @@
-# Human Chat GPT
-Talk to ChatGPT, and it talks back with a human voice. Built with ChatGPT (for now) and
-[Whisper.cpp](https://github.com/ggerganov/whisper.cpp)
+# Non-deterministic Model With A Gun
+
+A staged human-computer interaction about the power we give to our tools. Built with ChatGPT (for
+now) and [Whisper.cpp](https://github.com/ggerganov/whisper.cpp).
 
 Prototype; currently MacOS Apple Silicon only.
 
