@@ -10,8 +10,8 @@ currently incomplete. The complete JavaScript demo presented at WordHack can be 
 Currently MacOS Apple Silicon only.
 
 ## Installation
-`cargo run` to run it
-`cargo build` to build it
-`cargo build -r` to build it in release mode
+* `cargo run` to run it
+* `cargo build` to build it
+* `cargo build -r` to build it in release mode
 
 Right now it just transcribes your audio.

@@ -21,8 +21,8 @@ make
 cp main ~/bin/whisper
 ```
 
-3. Download the language model using the script in the [parent directory](vendor/models) and copy it
-   to the [models directory here](js-demo/models).
+3. Download the language model using the script in the [parent directory](../vendor/models) and copy it
+   to the [models directory here](./models).
 
 4. Create a `.env` file with an OpenAI key in the exact format of:
 ```
