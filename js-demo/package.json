@@ -1,5 +1,5 @@
 {
-  "name": "gpt-chat-human",
+  "name": "nmwag",
   "type": "module",
   "main": "openai.js",
   "scripts": {

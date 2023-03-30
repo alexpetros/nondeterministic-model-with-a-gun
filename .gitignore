@@ -1,6 +1,15 @@
-package-lock.json
-node_modules/
+# Secrets
 .env
-recordings/*
-models/*.bin
+
+# Build artifcats
+js-demo/node_modules
+/target
+
+# Run artifacts
+js-demo/recordings/*
 chat-history-dump*
+output.wav
+
+# Models
+models/*.bin
+*.en.bin
