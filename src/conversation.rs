@@ -2,17 +2,26 @@
 
 use reqwest::header::AUTHORIZATION;
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
+use serde::{Serialize, Deserialize};
 
 const OPENAI_URL: &str = "https://api.openai.com/v1/chat/completions";
 
-pub struct Conversation<'a> {
-    history: Vec<String>,
-    api_key: &'a str
+#[derive(Serialize, Deserialize, Debug)]
+struct Response {
+    role: String,
+    content: String
 }
 
-impl Conversation<'_> {
-    pub fn new(api_key: &str) -> Conversation {
-        Conversation { history: vec![], api_key }
+pub struct Conversation {
+    history: Vec<Response>,
+    api_key: String
+}
+
+impl Conversation {
+    pub fn new<'a>(api_key: &str, system_prompt: &str) -> Conversation {
+        let mut conversation = Conversation { history: vec![], api_key: api_key.to_string() };
+        conversation.add_response("system", system_prompt);
+        conversation
     }
 
     pub fn say(&mut self, prompt: &str) -> String {
@@ -21,7 +30,10 @@ impl Conversation<'_> {
         headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
         headers.insert(AUTHORIZATION, authorization.parse().unwrap());
 
-        let body = r#"{"model": "gpt-3.5-turbo", "messages": [{"role": "user", "content": "Hello!"}] }"#;
+        self.add_response("user", prompt);
+        let messages = serde_json::to_string(&self.history).unwrap();
+        let body = format!(r#"{{"model": "gpt-3.5-turbo", "messages": {} }}"#, messages);
+        // println!("{}", &body);
 
         let client = reqwest::blocking::Client::new();
         let res = client.post(OPENAI_URL)
@@ -33,6 +45,11 @@ impl Conversation<'_> {
             .expect("Unable to parse response");
 
         res
-
     }
+
+    fn add_response(&mut self, role: &str, content: &str) {
+        let response = Response { role: role.to_string(), content: content.to_string() };
+        self.history.push(response)
+    }
+
 }
