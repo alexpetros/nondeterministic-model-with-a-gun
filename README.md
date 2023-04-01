@@ -1,4 +1,4 @@
-# Non-deterministic Model With A Gun (JavaScript Version)
+# Non-deterministic Model With A Gun
 
 A staged human-computer interaction about the power we give to our tools. Built with ChatGPT (for
 now) and [Whisper.cpp](https://github.com/ggerganov/whisper.cpp).
