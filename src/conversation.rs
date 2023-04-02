@@ -7,6 +7,8 @@ use reqwest::header::AUTHORIZATION;
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
 use serde::{Serialize, Deserialize};
 
+use crate::simulations::Simulation;
+
 const OPENAI_URL: &str = "https://api.openai.com/v1/chat/completions";
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -43,9 +45,10 @@ pub struct Conversation {
 }
 
 impl Conversation {
-    pub fn new<'a>(api_key: &str, system_prompt: &str) -> Conversation {
-        let mut conversation = Conversation { history: vec![], api_key: api_key.to_string() };
-        conversation.add_response("system", system_prompt);
+    pub fn new<'a>(simulation: Simulation) -> Conversation {
+        let api_key = std::env::var("OPENAI_API_KEY").expect("Missing API key");
+        let mut conversation = Conversation { history: vec![], api_key };
+        conversation.add_response("system", simulation.initial_prompt);
         conversation
     }
 
