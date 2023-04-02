@@ -27,7 +27,14 @@ fn main() {
 }
 
 fn next_dialogue(input: &str, mut conversation: Conversation) -> Conversation {
-    let dialogue = if input == "" { transcription::listen() } else { input.to_string() };
+    let dialogue = if input == "" {
+        let transcription = transcription::listen().unwrap();
+        println!("{}", &transcription);
+        transcription
+    } else {
+        input.to_string()
+    };
+
     let response = conversation
         .say(&dialogue)
         .unwrap_or_else(|err| {
