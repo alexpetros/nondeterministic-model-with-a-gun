@@ -7,13 +7,25 @@ use serde::{Serialize, Deserialize};
 const OPENAI_URL: &str = "https://api.openai.com/v1/chat/completions";
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Response {
+struct Message {
     role: String,
     content: String
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+struct Choice {
+    message: Message,
+    finish_reason: String
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct ApiResponse {
+    id: String,
+    choices: Vec<Choice>
+}
+
 pub struct Conversation {
-    history: Vec<Response>,
+    history: Vec<Message>,
     api_key: String
 }
 
@@ -45,11 +57,13 @@ impl Conversation {
             .text()
             .expect("Unable to parse response");
 
-        res
+        let json: ApiResponse  = serde_json::from_str(&res).unwrap();
+        // TODO convert to .get and then to Result
+        json.choices[0].message.content.clone()
     }
 
     fn add_response(&mut self, role: &str, content: &str) {
-        let response = Response { role: role.to_string(), content: content.to_string() };
+        let response = Message { role: role.to_string(), content: content.to_string() };
         self.history.push(response)
     }
 
