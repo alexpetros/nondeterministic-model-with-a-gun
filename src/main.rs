@@ -30,7 +30,12 @@ fn main() {
             }
         } else {
             let dialogue = if input_line == "" { transcription::listen() } else { input_line.to_string() };
-            let response = conversation.say(&dialogue);
+            let response = conversation
+                .say(&dialogue)
+                .unwrap_or_else(|err| {
+                    eprint!("{}", err);
+                    "Sorry, I didn't quite catch that. Could you try again?".to_string()
+                });
             println!("{}", response);
         }
 
