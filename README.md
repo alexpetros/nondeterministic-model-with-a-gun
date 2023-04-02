@@ -4,8 +4,9 @@ A staged human-computer interaction about the power we give to our tools. Built 
 now) and [Whisper.cpp](https://github.com/ggerganov/whisper.cpp).
 
 This is the full version that we are going to instantiate inside a remote control robot, and it is
-currently incomplete. The complete JavaScript demo presented at WordHack can be found in the
-[js-demo](js-demo) directory.
+currently incomplete.
+
+We demoed a prototype audio-only version of this at WordHack 3/16/23, which can be found at the [wordhack-demo tag](https://github.com/alexpetros/nondeterministic-model-with-a-gun/releases/tag/wordhack-demo).
 
 Currently MacOS Apple Silicon only.
 
@@ -14,4 +15,3 @@ Currently MacOS Apple Silicon only.
 * `cargo build` to build it
 * `cargo build -r` to build it in release mode
 
-Right now it just transcribes your audio.
