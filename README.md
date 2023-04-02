@@ -15,3 +15,5 @@ Currently MacOS Apple Silicon only.
 * `cargo build` to build it
 * `cargo build -r` to build it in release mode
 
+At this stage it listens and inserts your response into the interrogation script. I need to add back
+the loop and the CLI commands.
