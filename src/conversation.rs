@@ -24,6 +24,7 @@ impl Conversation {
         conversation
     }
 
+    // TODO convert to  result
     pub fn say(&mut self, prompt: &str) -> String {
         let authorization = format!("Bearer {}", self.api_key);
         let mut headers = HeaderMap::new();

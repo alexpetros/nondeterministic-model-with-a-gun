@@ -32,6 +32,7 @@ pub fn transcribe_audio (audio_data: &Vec<i16>) -> String {
     String::from(transcription.trim())
 }
 
+// TODO convert to Result
 pub fn listen () -> String {
     let process = Command::new("sox")
         .args(["-t", "coreaudio", "default", "-r", "16000", "-c", "1", "-b", "16", "output.wav"])
@@ -59,6 +60,7 @@ pub fn listen () -> String {
     // let reader = BufReader::new(&buffer[..]);
 
     let transcription = transcribe_audio(&audio_data);
+    println!("{}", &transcription);
     transcription
 }
 
