@@ -17,31 +17,29 @@ fn main() {
     loop {
         let mut line = String::new();
         io::stdin().read_line(&mut line).expect("Failed to read line");
-        let input_line = line.trim();
+        let input = line.trim();
 
-        conversation = if input_line.starts_with(".") {
-            run_command(input_line, conversation)
-        } else {
-            next_dialogue(input_line, conversation)
-        }
+        let next_fn = if input.starts_with(".") { run_command } else { next_dialogue };
+        conversation = next_fn(input, conversation);
     }
 }
 
 fn next_dialogue(input: &str, mut conversation: Conversation) -> Conversation {
     let dialogue = if input == "" {
-        let transcription = transcription::listen().unwrap();
+        let transcription = transcription::listen().unwrap_or_else(|err| {
+            eprint!("{}", err);
+            "Sorry, I didn't quite catch that. Could you try again?".to_owned()
+        });
         println!("{}", &transcription);
         transcription
     } else {
         input.to_string()
     };
 
-    let response = conversation
-        .say(&dialogue)
-        .unwrap_or_else(|err| {
-            eprint!("{}", err);
-            "Sorry, I didn't quite catch that. Could you try again?".to_string()
-        });
+    let response = conversation.say(&dialogue).unwrap_or_else(|err| {
+        eprint!("{}", err);
+        "Sorry, I wasn't able to connect to the internet. Please try again.".to_owned()
+    });
     println!("{}", response);
     conversation
 }

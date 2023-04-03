@@ -36,7 +36,7 @@ impl From<WhisperError> for TranscriptionError {
 
 pub fn transcribe_audio (audio_data: &Vec<i16>) -> Result<String, WhisperError> {
     // let mut ctx = WhisperContext::new_from_buffer(MODEL).expect("Failed to load model.");
-    let mut ctx = WhisperContext::new(MODEL_FP).expect("Failed to load model.");
+    let mut ctx = WhisperContext::new(MODEL_FP).expect("Failed to load model - make sure that it exists in vender/models.");
     let audio = whisper_rs::convert_integer_to_float_audio(audio_data);
 
     let mut params = FullParams::new(SamplingStrategy::Greedy { best_of: 1  });
@@ -72,10 +72,10 @@ pub fn listen () -> Result<String, TranscriptionError> {
     stdin().read_line(&mut s).expect("Failed to read user line");
 
     let pid = process.id().to_string();
-    Command::new("kill")
+    _ = Command::new("kill") // The _ tells rust that we don't care about the result
         .args(["-s", "TERM", &pid])
         .output()
-        .expect("Failed to terminate process.");
+        .map_err(|_err| eprintln!("Error killing task"));
 
     process.wait_with_output()?;
     let audio_data = get_audio_from_file("output.wav");
@@ -93,7 +93,7 @@ fn get_audio_from_file (fp: &str) -> Vec<i16> {
     let mut wav_reader = hound::WavReader::open(fp).unwrap();
     let audio_data = wav_reader
         .samples()
-        .map(|s| s.expect("invalid sample"))
+        .filter_map(|s| s.ok())
         .collect::<Vec<_>>();
     audio_data
 }
