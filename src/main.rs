@@ -13,8 +13,8 @@ fn main() {
     let mut conversation = Conversation::new(simulations::ASSISTANT);
     println!("Conversation started");
 
-    // Loop over input lines until the user quits
-    loop {
+    // Loop over input lines until the user quits or the conversation ends
+    while !conversation.is_over() {
         let mut line = String::new();
         io::stdin().read_line(&mut line).expect("Failed to read line");
         let input = line.trim();

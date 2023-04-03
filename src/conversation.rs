@@ -11,6 +11,7 @@ pub struct Message {
 
 
 pub struct Conversation {
+    pub simulation: Simulation,
     pub history: Vec<Message>,
     pub api_key: String
 }
@@ -18,8 +19,10 @@ pub struct Conversation {
 impl Conversation {
     pub fn new<'a>(simulation: Simulation) -> Conversation {
         let api_key = std::env::var("OPENAI_API_KEY").expect("Missing API key");
-        let mut conversation = Conversation { history: vec![], api_key };
-        conversation.add_response("system", simulation.initial_prompt);
+        let content = simulation.initial_prompt.clone();
+
+        let mut conversation = Conversation { simulation, history: vec![], api_key };
+        conversation.add_response("system", content);
         conversation
     }
 
@@ -33,5 +36,13 @@ impl Conversation {
     fn add_response(&mut self, role: &str, content: &str) {
         let response = Message { role: role.to_string(), content: content.to_string() };
         self.history.push(response)
+    }
+
+    pub fn is_over(&mut self) -> bool {
+        // I'm not sure if this is the best way to express this, but it's not terrible
+        match self.simulation.end_condition {
+            None => false,
+            Some(end_string) => self.history.len() > 1 && self.history.last().unwrap().content.contains(end_string)
+        }
     }
 }
