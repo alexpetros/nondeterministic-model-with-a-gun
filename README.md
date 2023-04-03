@@ -11,6 +11,12 @@ We demoed a prototype audio-only version of this at WordHack 3/16/23, which can 
 Currently MacOS Apple Silicon only.
 
 ## Installation
+The first time you download, you will need to download models. You can do that with:
+```
+bash ./vendor/models/download-base-en.sh
+```
+
+During development:
 * `cargo run` to run it
 * `cargo build` to build it
 * `cargo build -r` to build it in release mode
