@@ -5,6 +5,7 @@ use dotenv::dotenv;
 mod conversation;
 mod transcription;
 mod simulations;
+mod llm_api;
 
 fn main() {
     dotenv().ok();
