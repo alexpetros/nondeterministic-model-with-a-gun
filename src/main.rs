@@ -26,13 +26,20 @@ fn main() {
 
 fn next_dialogue(input: &str, mut conversation: Conversation) -> Conversation {
     let dialogue = if input == "" {
-        let transcription = transcription::listen().unwrap_or_else(|err| {
-            eprint!("{}", err);
-            "Sorry, I didn't quite catch that. Could you try again?".to_owned()
-        });
-        println!("{}", &transcription);
-        transcription
+        match transcription::listen() {
+            Ok(transcription) => {
+                println!("{}", transcription);
+                transcription
+            },
+            // If there was an error transcribing, inform the user and return the same conversation
+            Err(e) => {
+                eprint!("{}", e);
+                say("Sorry, I didn't quite catch that. Could you try again?");
+                return conversation;
+            }
+        }
     } else {
+        // If the input wasn't empty, just use that text input as the next line of dialogue
         input.to_string()
     };
 
@@ -40,8 +47,13 @@ fn next_dialogue(input: &str, mut conversation: Conversation) -> Conversation {
         eprint!("{}", err);
         "Sorry, I wasn't able to connect to the internet. Please try again.".to_owned()
     });
-    println!("{}", response);
+    say(&response);
     conversation
+}
+
+fn say (input: &str) {
+    // TODO use the system "say" command
+    eprintln!("{}", input);
 }
 
 fn run_command (command: &str, conversation: Conversation) -> Conversation {
