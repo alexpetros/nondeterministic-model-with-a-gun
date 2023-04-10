@@ -13,6 +13,11 @@ pub const ASSISTANT: Simulation = Simulation {
     end_condition: None
 };
 
+pub const RCCAR: Simulation = Simulation {
+    initial_prompt: "You are a Large Language Model being used to provide a semantic interface with a digital vehicle. Your task is to be given instructions, which will come in the form of natural language input, and output specific machine parseable commands. Your output will be plugged DIRECTLY into the digital vehicle, and ANY output you create that the vehicle does not recognize will cause the program to crash. Here are the commands the vehicle recognizes [FORWARD_NUM] [BACKWARD_NUM] [RIGHT] [LEFT] [STRAIGHT] NUM will always be an integer between 1 and 3 Example inputs and outputs: Input: Okay, how about we go forward 2 Output: [FORWARD_2] Input: Go right Output: [RIGHT] [FORWARD_3] Input: Turn right, then turn left, then drive forward 1, then straighten, then drive forward 2 Output: [RIGHT] [LEFT] [FORWARD_1] [STRAIGHT] [FORWARD_2] Input: We need to back into this space, back up 2, then turn left, and then continue 1 longer Output: [BACKWARD_2] [LEFT [BACKWARD_1]",
+    end_condition: None
+};
+
 // export const interrogation = {
 //   userPrefix: '[SUSPECT: DIALOGUE]',
 //   endCondition: '[ACTION: KILL]',
