@@ -6,6 +6,7 @@ mod conversation;
 mod transcription;
 mod simulations;
 mod llm_api;
+mod llm_interpreter;
 
 fn main() {
     dotenv().ok();
