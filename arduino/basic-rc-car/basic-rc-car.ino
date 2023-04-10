@@ -22,33 +22,43 @@ void setup() {
   pinMode(rightPin, OUTPUT);
   Serial.begin(9600);
   stop();
+  while (! Serial); // Wait until Serial is ready
+  Serial.println("Ready to accept input");
 }
 
 void loop() {
   if (Serial.available()) {
-    char ch = Serial.read();
-    switch (ch) {
-      case 'i':
+    String input = Serial.readString();
+
+    Serial.println(input);
+    
+    char command = input[0];
+    int duration = (input[1] - '0') * 1000;
+
+    switch (command) {
+      case 'f':
         forward();
         break;
-      case 'k':
+      case 'b':
         backward();
         break;
-      case 'j':
+      case 'l':
         left();
         break;
-      case 'l':
+      case 'r':
         right();
         break;
-      case ' ':
-        straight();
-        break;
       case 's':
-        stop();
+        straight();
         break;
       default:
         break;
     }
+
+    // TODO add error handling
+
+    delay(duration);
+    stop();
   }
 }
 
