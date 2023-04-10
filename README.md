@@ -1,6 +1,6 @@
 # Non-deterministic Model With A Gun
 
-A staged human-computer interaction about the power we give to our tools. Built with ChatGPT (for
+A staged human-computer interaction about the power we give to our tools. Built with GPT-4 (for
 now) and [Whisper.cpp](https://github.com/ggerganov/whisper.cpp).
 
 This is the full version that we are going to instantiate inside a remote control robot, and it is
