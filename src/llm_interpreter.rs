@@ -3,8 +3,8 @@ use core::fmt;
 
 #[derive(Debug, Clone)]
 pub struct Instruction {
-    command: u8,
-    duration: u8
+    pub command: u8,
+    pub duration: u8
 }
 
 impl fmt::Display for Instruction {

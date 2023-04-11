@@ -2,13 +2,20 @@ use conversation::Conversation;
 use std::io;
 use dotenv::dotenv;
 
+use crate::{serial_output::send_instructions, llm_interpreter::get_commands};
+
 mod conversation;
 mod transcription;
 mod simulations;
 mod llm_api;
 mod llm_interpreter;
+mod serial_output;
+
+// TODO find dynamically
+const PORT_NUM: &str = "/dev/cu.usbmodem1112401";
 
 fn main() {
+    send_instructions(PORT_NUM, get_commands("[forward-2]"));
     dotenv().ok();
     // Initialize conversation
     let mut conversation = Conversation::new(simulations::ASSISTANT);
@@ -61,6 +68,7 @@ fn run_command (command: &str, conversation: Conversation) -> Conversation {
     match command {
         ".a" => Conversation::new(simulations::ASSISTANT),
         ".i" => Conversation::new(simulations::INTERROGATION),
+        ".r" => Conversation::new(simulations::RCCAR),
         ".dump" => {
             eprintln!("TODO: implement history dump");
             conversation

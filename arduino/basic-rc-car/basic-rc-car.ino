@@ -28,10 +28,10 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
-    String input = Serial.readString();
+    String input = Serial.readStringUntil('\n');
 
     Serial.println(input);
-    
+
     char command = input[0];
     int duration = (input[1] - '0') * 1000;
 
@@ -56,7 +56,6 @@ void loop() {
     }
 
     // TODO add error handling
-
     delay(duration);
     stop();
   }
