@@ -2,7 +2,7 @@ use conversation::Conversation;
 use std::io;
 use dotenv::dotenv;
 
-use crate::{serial_output::send_instructions, llm_interpreter::get_commands};
+use crate::llm_interpreter::get_commands;
 
 mod conversation;
 mod transcription;
@@ -15,8 +15,14 @@ mod serial_output;
 const PORT_NUM: &str = "/dev/cu.usbmodem1112401";
 
 fn main() {
-    send_instructions(PORT_NUM, get_commands("[forward-2]"));
     dotenv().ok();
+
+    // For now, commend out this paragraph if you want to run the model without output
+    // TODO gate this with a CLI option
+    let mut connection = serial_output::open_connection(PORT_NUM);
+    println!("Testing serial output");
+    serial_output::send_instructions(&mut connection, get_commands("[forward-2]"));
+
     // Initialize conversation
     let mut conversation = Conversation::new(simulations::ASSISTANT);
     println!("Conversation started");
