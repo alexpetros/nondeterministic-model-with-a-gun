@@ -56,16 +56,26 @@ void loop() {
     }
 
     // TODO add error handling
-    delay(duration);
+
+    // Delay if the duration is less than 9 and the command is a movement command
+    if (duration < 9 && (command == 'f' || command == 'b') ) {
+        delay(duration);
+    }
+
     stop();
   }
+}
+
+void reset() {
+  digitalWrite(forwardPin, LOW);
+  digitalWrite(backwardPin, LOW);
+  digitalWrite(leftPin, LOW);
+  digitalWrite(rightPin, LOW);
 }
 
 void stop() {
   digitalWrite(forwardPin, LOW);
   digitalWrite(backwardPin, LOW);
-  digitalWrite(leftPin, LOW);
-  digitalWrite(rightPin, LOW);
 }
 
 void forward() {
