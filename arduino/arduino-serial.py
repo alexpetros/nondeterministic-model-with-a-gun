@@ -15,6 +15,9 @@ def write(x):
     data = arduino.readline()
     return data
 
+print("Connected to port " + port)
+print("Waiting for arduino to be ready for input")
+time.sleep(2)
 print("Now accepting input. Enter a blank line to exit.")
 while True:
     command = input('Enter a command: ')
