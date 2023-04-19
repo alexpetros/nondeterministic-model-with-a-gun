@@ -2,10 +2,12 @@
 # requires pyserial
 import sys
 import serial
+import glob
 import time
 
-# TODO make this dynamic
-arduino = serial.Serial(port='/dev/cu.usbmodem1112401', baudrate=9600, timeout=.1)
+# It's going to attempt to connect to the first USB, so make sure there's only one plugged in
+port = glob.glob('/dev/tty.usb*')[0]
+arduino = serial.Serial(port=port, baudrate=9600, timeout=.1)
 
 def write(x):
     arduino.write(bytes(x, 'ascii'))
