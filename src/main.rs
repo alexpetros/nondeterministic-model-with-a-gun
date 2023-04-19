@@ -11,17 +11,10 @@ mod llm_api;
 mod llm_interpreter;
 mod serial_output;
 
-// TODO find dynamically
-const PORT_NUM: &str = "/dev/cu.usbmodem1112401";
-
 fn main() {
     dotenv().ok();
-
-    // For now, commend out this paragraph if you want to run the model without output
     // TODO gate this with a CLI option
-    let mut connection = serial_output::open_connection(PORT_NUM);
-    println!("Testing serial output");
-    serial_output::send_instructions(&mut connection, get_commands("[forward-2]"));
+    let mut connection = serial_output::get_usb_connection();
 
     // Initialize conversation
     let mut conversation = Conversation::new(simulations::ASSISTANT);

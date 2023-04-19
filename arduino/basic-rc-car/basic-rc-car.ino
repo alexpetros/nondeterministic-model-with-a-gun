@@ -16,12 +16,14 @@ const int leftPin = 5;
 const int rightPin = 6;
 
 void setup() {
+  // Initialize all the pins
   pinMode(forwardPin, OUTPUT);
   pinMode(backwardPin, OUTPUT);
   pinMode(leftPin, OUTPUT);
   pinMode(rightPin, OUTPUT);
+
   Serial.begin(9600);
-  stop();
+  reset();
   while (! Serial); // Wait until Serial is ready
   Serial.println("Ready to accept input");
 }
