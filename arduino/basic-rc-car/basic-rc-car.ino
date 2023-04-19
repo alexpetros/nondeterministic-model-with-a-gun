@@ -16,12 +16,10 @@ const int leftPin = 5;
 const int rightPin = 6;
 
 void setup() {
-  // Initialize all the pins
   pinMode(forwardPin, OUTPUT);
   pinMode(backwardPin, OUTPUT);
   pinMode(leftPin, OUTPUT);
   pinMode(rightPin, OUTPUT);
-
   Serial.begin(9600);
   reset();
   while (! Serial); // Wait until Serial is ready
@@ -35,7 +33,7 @@ void loop() {
     Serial.println(input);
 
     char command = input[0];
-    int duration = (input[1] - '0') * 1000;
+    int duration_ms = (input[1] - '0') * 1000;
 
     switch (command) {
       case 'f':
@@ -59,9 +57,9 @@ void loop() {
 
     // TODO add error handling
 
-    // Delay if the duration is less than 9 and the command is a movement command
-    if (duration < 9 && (command == 'f' || command == 'b') ) {
-        delay(duration);
+    // Delay if the duration_ms is less than 9 and the command is a movement command
+    if (duration_ms < 9000 && (command == 'f' || command == 'b') ) {
+        delay(duration_ms);
     }
 
     stop();
