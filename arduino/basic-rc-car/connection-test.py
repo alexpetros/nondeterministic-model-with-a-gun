@@ -1,3 +1,4 @@
+#!python3
 # requires pyserial
 import sys
 import serial

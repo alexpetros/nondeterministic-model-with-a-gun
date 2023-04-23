@@ -1,3 +1,4 @@
+#!python3
 # arduino-serial.py - very basic CLI for sending newline-delimited serial commands to an arduino
 # requires pyserial
 import sys
