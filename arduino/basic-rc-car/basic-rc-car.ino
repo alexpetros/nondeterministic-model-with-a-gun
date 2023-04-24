@@ -59,7 +59,7 @@ void loop() {
 
     // Delay if the duration_ms is less than 9 and the command is a movement command
     if (duration_ms < 9000 && (command == 'f' || command == 'b') ) {
-        delay(duration_ms);
+        delay(duration_ms / 4);
     }
 
     stop();

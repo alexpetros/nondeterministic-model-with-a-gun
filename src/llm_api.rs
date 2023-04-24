@@ -30,7 +30,7 @@ impl fmt::Display for EmptyMessageError {
 
 pub fn get_next_message(conversation: &Conversation) -> Result<Message, Box<dyn Error>> {
     let messages = serde_json::to_string(&conversation.history).expect("Unable to serialize history");
-    let body = format!(r#"{{"model": "gpt-3.5-turbo", "messages": {} }}"#, messages);
+    let body = format!(r#"{{"model": "gpt-4", "messages": {} }}"#, messages);
     let authorization = format!("Bearer {}", conversation.api_key);
 
     let mut headers = HeaderMap::new();
