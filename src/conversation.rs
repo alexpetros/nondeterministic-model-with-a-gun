@@ -1,5 +1,6 @@
 use std::error::Error;
 use serde::{Serialize, Deserialize};
+use crate::command_interpreters::Instruction;
 use crate::llm_api::get_next_message;
 use crate::simulations::Simulation;
 
@@ -13,7 +14,7 @@ pub struct Message {
 pub struct Conversation {
     pub simulation: Simulation,
     pub history: Vec<Message>,
-    pub api_key: String
+    pub api_key: String,
 }
 
 impl Conversation {
@@ -43,6 +44,14 @@ impl Conversation {
         match self.simulation.end_condition {
             None => false,
             Some(end_string) => self.history.len() > 1 && self.history.last().unwrap().content.contains(end_string)
+        }
+    }
+
+    pub fn filter_instructions(&mut self, text: &str) -> (String, Vec<Instruction>) {
+        if let Some(filter_fn) = self.simulation.filter_fn {
+            filter_fn(&text)
+        } else {
+            (text.to_owned(), vec![])
         }
     }
 }

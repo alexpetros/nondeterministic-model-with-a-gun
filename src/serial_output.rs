@@ -1,7 +1,7 @@
+use crate::command_interpreters::Instruction;
 use serialport::SerialPort;
 use std::thread::sleep;
 use core::time::Duration;
-use crate::llm_interpreter::Instruction;
 
 pub fn get_usb_connection () -> Box<dyn SerialPort> {
     let ports = serialport::available_ports().expect("Failed to find open port");

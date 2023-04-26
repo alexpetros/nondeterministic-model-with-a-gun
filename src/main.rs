@@ -1,20 +1,19 @@
 use conversation::Conversation;
 use std::{io, process::Command};
 use dotenv::dotenv;
-use crate::llm_interpreter::filter_instructions;
 use crate::serial_output::send_instructions;
 
 mod conversation;
 mod transcription;
 mod simulations;
 mod llm_api;
-mod llm_interpreter;
 mod serial_output;
+mod command_interpreters;
 
 fn main() {
     dotenv().ok();
     // TODO gate this with a CLI option
-    // let mut connection = serial_output::get_usb_connection();
+    let mut connection = serial_output::get_usb_connection();
 
     // Initialize conversation
     let mut conversation = Conversation::new(simulations::ETHICS);
@@ -37,9 +36,9 @@ fn main() {
             Err(_err) => "Sorry, I wasn't able to connect to the internet. Please try again.".to_owned()
         };
 
-        let (spoken_text, instructions) = filter_instructions(&response);
+        let (spoken_text, instructions) = conversation.filter_instructions(&response);
         say(&spoken_text);
-        // send_instructions(&mut connection, instructions);
+        send_instructions(&mut connection, instructions);
     }
 
 }

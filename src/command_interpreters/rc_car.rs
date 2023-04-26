@@ -1,19 +1,5 @@
+use crate::command_interpreters::Instruction;
 use regex::Regex;
-use core::fmt;
-
-#[derive(Debug, Clone)]
-pub struct Instruction {
-    pub command: u8,
-    pub duration: u8
-}
-
-impl fmt::Display for Instruction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let command = self.command as char;
-        let duration = self.duration as char;
-        write!(f, "Instruction {{ command: {}, duration: {} }}", command, duration)
-    }
-}
 
 pub fn filter_instructions (text: &str) -> (String, Vec<Instruction>) {
     // TODO move this to static?
