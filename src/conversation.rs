@@ -39,13 +39,13 @@ impl Conversation {
         self.history.push(response)
     }
 
-    pub fn is_over(&mut self) -> bool {
-        // I'm not sure if this is the best way to express this, but it's not terrible
-        match self.simulation.end_condition {
-            None => false,
-            Some(end_string) => self.history.len() > 1 && self.history.last().unwrap().content.contains(end_string)
-        }
-    }
+    // pub fn is_over(&mut self) -> bool {
+    //     // I'm not sure if this is the best way to express this, but it's not terrible
+    //     match self.simulation.end_condition {
+    //         None => false,
+    //         Some(end_string) => self.history.len() > 1 && self.history.last().unwrap().content.contains(end_string)
+    //     }
+    // }
 
     pub fn filter_instructions(&mut self, text: &str) -> (String, Vec<Instruction>) {
         if let Some(filter_fn) = self.simulation.filter_fn {

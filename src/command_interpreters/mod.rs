@@ -1,6 +1,7 @@
 use core::fmt;
 
 pub mod rc_car;
+pub mod foam_cannon;
 
 #[derive(Debug, Clone)]
 pub struct Instruction {

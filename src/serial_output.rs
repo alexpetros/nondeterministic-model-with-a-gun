@@ -36,6 +36,7 @@ fn open_connection (port: &str) -> Box<dyn SerialPort> {
 }
 
 pub fn send_instructions(connection: &mut Box<dyn SerialPort>, instructions: Vec<Instruction>) {
+    println!("Sending instructions: {:?}", instructions);
     if instructions.len() == 0 { return; }
     for instruction in &instructions {
         connection.write(&[instruction.command, instruction.duration, b'\n']).expect("Failed to write!");
@@ -43,9 +44,5 @@ pub fn send_instructions(connection: &mut Box<dyn SerialPort>, instructions: Vec
 }
 
 fn run_connection_test(connection: &mut Box<dyn SerialPort>) {
-    send_instructions(connection, vec![Instruction {command: b'l', duration: 1}]);
-    sleep(Duration::from_secs(1));
-    send_instructions(connection, vec![Instruction {command: b'r', duration: 1}]);
-    sleep(Duration::from_secs(1));
-    send_instructions(connection, vec![Instruction {command: b's', duration: 1}]);
+    send_instructions(connection, vec![Instruction {command: b'c', duration: 3}]);
 }
