@@ -1,4 +1,5 @@
 use conversation::Conversation;
+use std::env;
 use std::{io, process::Command};
 use dotenv::dotenv;
 use crate::serial_output::send_instructions;
@@ -12,8 +13,12 @@ mod command_interpreters;
 
 fn main() {
     dotenv().ok();
-    // TODO gate this with a CLI option
-    let mut connection = serial_output::get_usb_connection();
+    let args: Vec<String> = env::args().collect();
+
+    let mut connection = None;
+    if !args.iter().any(|a| a == "--nc") {
+        connection =  Some(serial_output::get_usb_connection());
+    }
 
     // Initialize conversation
     let mut conversation = Conversation::new(simulations::ETHICS);
@@ -38,7 +43,9 @@ fn main() {
 
         let (spoken_text, instructions) = conversation.filter_instructions(&response);
         say(&spoken_text);
-        send_instructions(&mut connection, instructions);
+        if let Some(mut conn) = connection.as_mut() {
+            send_instructions(&mut conn, instructions);
+        }
     }
 
 }
