@@ -21,7 +21,8 @@ fn main() {
     }
 
     // Initialize conversation
-    let mut conversation = Conversation::new(simulations::ETHICS);
+
+    let mut conversation = Conversation::new(simulations::FOAMCAR);
     println!("Conversation started");
 
     // Loop over input lines until the user quits

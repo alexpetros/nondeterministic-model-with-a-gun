@@ -9,19 +9,19 @@ pub fn filter_instructions (text: &str) -> (String, Vec<Instruction>) {
         .map(|capture| capture.get(1).unwrap().as_str())
         .filter_map(|raw_command| get_command(&raw_command))
         .collect();
-    let spoken_text = re.replace_all(text, "").to_string();
+    let spoken_text = text.to_string();
 
     (spoken_text, instructions)
 }
 
 fn get_command (text: &str) -> Option<Instruction> {
-    let command = match text {
-        "ACTION: KILL" => b's',
+    match text {
+        "ACTION: KILL" => Some(Instruction { command: b's', duration: b'7' }),
+        "LEFT" => Some(Instruction { command: b'l', duration: b'4' }),
+        "RIGHT" => Some(Instruction { command: b'r', duration: b'4' }),
         _ => return None
-    };
+    }
 
-    let duration = b'7';
-    Some(Instruction { command, duration })
 }
 
 #[cfg(test)]
