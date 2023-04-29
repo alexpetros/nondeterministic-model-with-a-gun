@@ -42,6 +42,7 @@ fn main() {
             Err(_err) => "Sorry, I wasn't able to connect to the internet. Please try again.".to_owned()
         };
 
+        eprintln!("{}", response);
         let (spoken_text, instructions) = conversation.filter_instructions(&response);
         say(&spoken_text);
         if let Some(mut conn) = connection.as_mut() {
@@ -69,7 +70,6 @@ fn listen() -> String {
 
 fn say (input: &str) {
     // TODO use the system "say" command
-    eprintln!("{}", input);
     Command::new("say")
         .args([input])
         .output()

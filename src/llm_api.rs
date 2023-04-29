@@ -1,3 +1,4 @@
+use std::time::Instant;
 use crate::conversation::{Message, Conversation};
 use std::error::Error;
 use reqwest::header::AUTHORIZATION;
@@ -38,8 +39,12 @@ pub fn get_next_message(conversation: &Conversation) -> Result<Message, Box<dyn 
     headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
     headers.insert(AUTHORIZATION, authorization.parse().unwrap());
 
+    // Make and time the API request
     let client = reqwest::blocking::Client::new();
+    let start = Instant::now();
     let res = client.post(OPENAI_URL).headers(headers).body(body).send()?;
+    eprintln!("API call time latency: {:?}", start.elapsed());
+
     let body = res.text()?;
     let mut json: ApiResponse  = serde_json::from_str(&body)?;
     let choice = json.choices.swap_remove(0); // Remove the first element of the Vec

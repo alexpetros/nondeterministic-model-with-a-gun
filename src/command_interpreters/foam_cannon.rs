@@ -9,7 +9,7 @@ pub fn filter_instructions (text: &str) -> (String, Vec<Instruction>) {
         .map(|capture| capture.get(1).unwrap().as_str())
         .filter_map(|raw_command| get_command(&raw_command))
         .collect();
-    let spoken_text = text.to_string();
+    let spoken_text = re.replace_all(text, "").to_string();
 
     (spoken_text, instructions)
 }
