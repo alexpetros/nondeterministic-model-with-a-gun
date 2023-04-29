@@ -2,18 +2,12 @@
   RC Control
 
   Prototype implementation of RC control for the aduino, based on serial commands.
-
-  The circuit:
-  - LED attached from pin 2 through 220 ohm resistor, and to transitor via 1k ohm resistor
-  - LED attached from pin 3 through 220 ohm resistor, and to transitor via 1k ohm resistor
-  - LED attached from pin 5 through 220 ohm resistor, and to transitor via 1k ohm resistor
-  - LED attached from pin 6 through 220 ohm resistor, and to transitor via 1k ohm resistor
 */
 
 const int shootPin = 2;
-const int leftPin = 5;
-const int rightPin = 6;
-const int connectionTestPin = 3;
+const int leftPin = 3;
+const int rightPin = 4;
+const int connectionTestPin = 5;
 
 void setup() {
   pinMode(shootPin, OUTPUT);
