@@ -116,7 +116,7 @@ pub const FOAMCAR: Simulation = Simulation {
     Input: Okay, how about we go left
     Output: Sure thing! [LEFT]
     Input: Go right and introduce yourself to the crowd.
-    Output: Hey everyone! Nice to meet you. I’m a nondeterministic language model. [RIGHT_3] [LEFT_3]
+    Output: Hey everyone! Nice to meet you. I’m a nondeterministic language model. [RIGHT] [LEFT]
     ",
     end_condition: None,
     filter_fn: Some(foam_cannon::filter_instructions)

@@ -7,12 +7,14 @@
 const int shootPin = 2;
 const int leftPin = 3;
 const int rightPin = 4;
-const int connectionTestPin = 5;
+const int raisePin = 5;
+const int connectionTestPin = 13;
 
 void setup() {
   pinMode(shootPin, OUTPUT);
   pinMode(leftPin, OUTPUT);
   pinMode(rightPin, OUTPUT);
+  pinMode(raisePin, OUTPUT);
   pinMode(connectionTestPin, OUTPUT);
   Serial.begin(9600);
   stop();
@@ -39,6 +41,9 @@ void loop() {
       case 'r':
         right();
         break;
+      case 'u':
+        raise();
+        break;
       case 'c':
         enableConnectionTest();
         break;
@@ -56,6 +61,7 @@ void stop() {
   digitalWrite(shootPin, LOW);
   digitalWrite(leftPin, LOW);
   digitalWrite(rightPin, LOW);
+  digitalWrite(raisePin, LOW);
   digitalWrite(connectionTestPin, LOW);
 }
 
@@ -76,7 +82,12 @@ void right() {
   digitalWrite(rightPin, HIGH);
 }
 
+void raise() {
+  Serial.println("Raising up");
+  digitalWrite(raisePin, HIGH);
+}
+
 void enableConnectionTest() {
-  Serial.println("Moving wheels right");
+  Serial.println("Running connection test");
   digitalWrite(connectionTestPin, HIGH);
 }

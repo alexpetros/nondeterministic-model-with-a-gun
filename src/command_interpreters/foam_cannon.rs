@@ -17,6 +17,7 @@ pub fn filter_instructions (text: &str) -> (String, Vec<Instruction>) {
 fn get_command (text: &str) -> Option<Instruction> {
     match text {
         "ACTION: KILL" => Some(Instruction { command: b's', duration: b'7' }),
+        "ACTION: RAISE GUN" => Some(Instruction { command: b'u', duration: b'2' }),
         "LEFT" => Some(Instruction { command: b'l', duration: b'4' }),
         "RIGHT" => Some(Instruction { command: b'r', duration: b'4' }),
         _ => return None
